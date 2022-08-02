@@ -1,0 +1,35 @@
+<!DOCTYPE html> <!-- HTML であることを示す -->
+<html lang="ja"> <!-- 日本語を選択 -->
+  <head> <!-- ヘッダ部分の開始: ヘッダには本文が始まる前の設定を書く-->
+    <meta charset="UTF-8" /> <!-- 文字コードとして、UTF-8 を指定 -->
+    <title>Admin Page</title> <!-- ページタイトル -->
+  </head>
+  <body> <!-- ここから本文 -->
+    <h1>管理者ページ</h1>
+    <ul>
+      <li> <a href="/"> トップに戻る</a></li>
+      <li> 最後のGPS観測データ(自動更新なし)
+	<table border="1">
+	<tr><th>バスID</th><th>北緯</th><th>東経</th></tr>
+	{% for location in locations.values() %}
+	<tr><td>{{ location.bus }}</td>
+	  <td>{{ location.latitude }}</td>
+	<td>{{ location.longitude }}</td></tr>
+	{% endfor %}
+	</table>
+      </li>
+      <li> 利用者のアクセスログ
+	<table border="1">
+	  <tr><th>利用者ID</th><th>アクセス時刻</th></tr>
+	  {% for log in logs %}
+	  <tr><td>{{ log.userId }}</td>
+	    <td>{{ log.time.strftime("%Y/%m/%d %H:%M:%S") }}</td></tr>
+	  {% endfor %}
+	</table>
+      </li>
+      <li>
+	<a href="deleteAll"> 全DB初期化 </a>
+      </li>
+    </ul>
+    </body>
+</html> 
